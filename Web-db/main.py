@@ -34,10 +34,10 @@ def add_users():
 
 
 def add_job():
-    team_leaders = [1, 2, 4]
+    team_leaders = [4, 3, 1]
     jobs = ['Заставлять валентина работать', 'Ставить сетки', 'deployment of residential modules 1 and 2']
     work_sizes = [100000, 4, 10]
-    collaboratorss = ['1', '1, 2', '3']
+    collaboratorss = ['4', '4, 3', '2']
     is_finisheds = [0, 0, 1]
 
     db_sess = db_session.create_session()
@@ -60,6 +60,28 @@ def index():
     db_sess = db_session.create_session()
     jobs = db_sess.query(Jobs).all()
     return render_template('index.html', jobs=jobs)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Регистрация', form=form,
+                                   message='Пароли не совпадают!')
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация', form=form,
+                                   message='Email уже существует!')
+        user = User(email=form.email.data, surname=form.surname.data, name=form.name.data, age=form.age.data,
+                    position=form.position.data,
+                    speciality=form.speciality.data, address=form.address.data)
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        print(1111)
+        return redirect('/')
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 def main():
