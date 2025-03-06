@@ -15,6 +15,14 @@
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <span class="navbar-brand mb-0 h1">Приложение новостей</span>
+                    {% if current_user.is_authenticated %}
+                        <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+                    {% else %}
+                        <p>
+                            <a class="btn btn-primary" href="/register">Зарегистрироваться</a>
+                            <a class="btn btn-success" href="/login">Войти</a>
+                        </p>
+                    {% endif %}
                 </div>
             </nav>
         </header>

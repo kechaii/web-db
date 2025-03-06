@@ -1,5 +1,7 @@
 table {
-    border: 1px solid #CCC;
+    border-radius: 10px;
+    border: 1px solid #000;
+    display: block;
 }
 
 td
@@ -8,4 +10,25 @@ td
     vertical-align: middle;
     width: 420px;
     height: 45px;
+}
+
+.title_table {
+    background-color: #CCC;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+.left_title {
+    border-radius:10px 0 0 0;
+    background-color: #CCC;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.right_title {
+    border-radius:0 10px 0 0;
+    background-color: #CCC;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
 }
